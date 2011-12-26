@@ -1,5 +1,5 @@
 <?php
-	/* Page principale du site! */
+	/* Page principale du site */
 
 	/* TODO Chargement des paramètres du site web par un include d'une autre page
 	qui se chargera de lire le fichier de paramètres XML */
