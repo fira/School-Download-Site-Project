@@ -21,8 +21,10 @@ function HTTPLoadDivSync(id, src) {
 function initLoginDialog (){
 				$("#login-dialog").dialog({
 					modal: true,
+					width: 500,
 					buttons: {
-						"Cancel": function(){$(this).dialog("destroy");}
+						"Cancel": function(){$(this).dialog("destroy");}, 
+						"Submit": function(){$("#login-form").submit();}
 					}
 				});
 
@@ -35,25 +37,23 @@ function initLoginDialog (){
 	/* Handling of the Registration Dialog */
 function initRegDialog() {
 				$( "#reg-dialog" ).dialog({
-				modal: true,
-				buttons: {
-						"Cancel": function() { 
-							$(this).dialog("destroy"); 
-						} 
+					modal: true,
+					width: 500,
+					buttons: {
+						"Cancel": function() {$(this).dialog("destroy");}, 
+						"Submit": function() {$("#reg-form").submit();} 
 					}
-
 			});			
 
-				HTTPLoadDivSync("reg-dialog", "parts/regform.html");	
+				HTTPLoadDivSync("reg-dialog", "parts/regform.php");
+
+					$("#reg-form").ajaxForm({target: "#reg-dialog"});
+
 				return false;
 			}
 
-
-
-
 $(function(){	
-			$("#login-button").button().click(initLoginDialog);
-			$( "#reg-button" ).button().click(initRegDialog);
-
+	$("#login-button").button().click(initLoginDialog);
+	$( "#reg-button" ).button().click(initRegDialog);
 });
 
