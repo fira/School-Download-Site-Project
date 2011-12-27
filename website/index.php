@@ -1,34 +1,27 @@
-<?php
-	/* Page principale du site */
-
-	/* TODO Chargement des paramètres du site web par un include d'une autre page
-	qui se chargera de lire le fichier de paramètres XML */
-
-	/* NOTE Tout ce qui est traitement d'entrée utilisateur doit aller ici
-	Idem pour login/etc, vu que les session_start() et création de cookies doivent être
-	utilisés avant l'envoie du header de page */
-?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
             "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 	<head>
 		<title></title>
-		<link href="style.css" rel="stylesheet" type="text/css" />
 
-		<!-- TODO Rajouter les meta-tags ici -->		
+		<link type="text/css" href="jquery-ui-theme/smoothness/jquery-ui.css" rel="stylesheet"/>
+		<link type="text/css" href="css/tablesorter-blue.css" rel="stylesheet"/>
+		<link type="text/css" href="css/style.css" rel="stylesheet"/>
+
+		<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+
+		<script type="text/javascript" src="js/global.js"></script>
+	
 	</head>
 
 	<body>
-<?php
-		
-		/* La page sera divisée en plusieurs onglets, chaque onglet ayant un ID particulier passé par GET
-		pour afficher seulement la partie souhaitée par l'utilisateur.
-		On pourrait utiliser JQuery pour avoir plusieurs onglets sans recharger la page,
-		mais il n'est pas utile de charger toutes les informations de l'utilisateur 
-		si on n'en as pas besoin ! */
+		<div id="reg-dialog" title="Signing up"></div>
+		<div id="login-dialog" title="Signing in"></div>
 
-?>
+		<button id="reg-button">Sign up</button>
+		<button id="login-button">Sign in</button>
 	</body>
 </html>
