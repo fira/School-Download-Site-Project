@@ -11,6 +11,7 @@
 	/* If the fields are valid, we can go on to the registration process */
 	if(isset($_POST['user'], $_POST['password'], $_POST['email'], $_POST['firstname'], $_POST['lastname']) && !(isset($fieldError))) {
 		/* FIXME Need to query the database to add the user here */
+		
 
 	/* If the fields are invalid or empty, we display the form
 	and the associated errors if there's some */
@@ -19,13 +20,13 @@
 		<fieldset>
 			<legend>Login Info</legend>
 			
-			<?php if(isset($fieldError['user'])) echo widget_errorbox("Username must be at least 3 characters long"); ?>
 			<label for="user">Username:</label><br />
-			<input type="text" name="user" class="text ui-widget-content ui-corner-all" /><br /><br />
+			<input type="text" name="user" class="text ui-widget-content ui-corner-all" /><br />
+			<?php if(isset($fieldError['user'])) widget_errorbox("Username must be at least 3 characters long"); ?><br />
 		
-			<?php if(isset($fieldError['password'])) echo widget_errorbox("You have to enter a password!"); ?>
 			<label for="password">Password:</label><br />
 			<input type="password" name="password" class="text ui-widget-content ui-corner-all" /><br />
+			<?php if(isset($fieldError['password'])) widget_errorbox("You have to enter a password!"); ?><br />
 
 		</fieldset>
 		
@@ -34,27 +35,23 @@
 		<fieldset>
 			<legend>Personal Info</legend>
 
-			<?php if(isset($fieldError['email'])) echo widget_errorbox("Please enter a valid e-mail"); ?>
 			<label for="email">E-Mail Address:</label><br />
-			<input type="text" name="email" class="text ui-widget-content ui-corner-all" /><br /><br />
+			<input type="text" name="email" class="text ui-widget-content ui-corner-all" /><br />
+			<?php if(isset($fieldError['email'])) widget_errorbox("Please enter a valid e-mail"); ?><br />
 
-			<?php if(isset($fieldError['firstname'])) echo widget_errorbox("Please enter a name"); ?>
 			<label for="firstname">First Name:</label><br />
-			<input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /><br /><br />
-
-			<?php if(isset($fieldError['lastname'])) echo widget_errorbox("Please enter a name"); ?>
+			<input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /><br />
+			<?php if(isset($fieldError['firstname'])) widget_errorbox("Please enter a name"); ?><br />
+			
 			<label for="lastname">Last Name:</label><br />
 			<input type="text" name="lastname" class="text ui-widget-content ui-corner-all" /><br />
-
+			<?php if(isset($fieldError['lastname'])) widget_errorbox("Please enter a name"); ?>
 		</fieldset>
 	</form>
 
 	<br />
 
-	<div class="ui-widget">
-		<div class="ui-state-highlight ui-corner-all" style="margin-top: 10px; padding: 0 .4em;"> 
-			<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .2em;"></span>
-			<a href="#" onclick="$('#reg-dialog').dialog('destroy'); initLoginDialog();">Got an account? Sign in!</a></p>
+	<?php widget_infobox("<a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a>"); ?>
 		</div>
 	</div>
 
