@@ -22,13 +22,18 @@ function initLoginDialog (){
 				$("#login-dialog").dialog({
 					modal: true,
 					width: 500,
+					height: 400,
 					buttons: {
-						"Cancel": function(){$(this).dialog("destroy");}, 
-						"Submit": function(){$("#login-form").submit();}
+						"Cancel": function(){ $(this).dialog("destroy"); }, 
+						"Submit": function(){ $("#login-form").submit(); }
 					}
 				});
-
+				
+				// Load the dialog contents
 				HTTPLoadDivSync("login-dialog", "parts/loginform.html");
+				// Bind the form to ajaxForm
+				initLoginDialogForm();
+
 				return false;
 			}
 
@@ -39,6 +44,7 @@ function initRegDialog() {
 				$( "#reg-dialog" ).dialog({
 					modal: true,
 					width: 500,
+					height: 550,
 					buttons: {
 						"Cancel": function() {$(this).dialog("destroy");}, 
 						"Submit": function() {$("#reg-form").submit();} 
@@ -59,6 +65,14 @@ function initRegDialogForm() {
 	$("#reg-form").ajaxForm({
 		target: "#reg-dialog",
 		success: initRegDialogForm
+	});
+}
+
+// Ditto
+function initLoginDialogForm () {
+	$("#login-form").ajaxForm({
+		target: "#login-dialog",
+		success: initLoginDialogForm
 	});
 }
 

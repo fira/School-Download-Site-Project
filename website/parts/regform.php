@@ -10,23 +10,37 @@
 
 	/* If the fields are valid, we can go on to the registration process */
 	if(isset($_POST['user'], $_POST['password'], $_POST['email'], $_POST['firstname'], $_POST['lastname']) && !(isset($fieldError))) {
+
 		/* FIXME Need to query the database to add the user here */
-		
+		echo "I think i lost the database address. Sorry. Yeah, this is a bad placeholder, i know.";
 
 	/* If the fields are invalid or empty, we display the form
 	and the associated errors if there's some */
 	} else { ?>
+	<?php widget_infobox("<strong><a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a></strong>", 1); ?>
+	<br />
+
 	<form id="reg-form" method="post" action="parts/regform.php">
 		<fieldset>
 			<legend>Login Info</legend>
+						
+			<table>
+			<tr><td width='200px'><label for="user">Username:</label></td>
+			<td><input type="text" name="user" class="text ui-widget-content ui-corner-all" /></td></tr>
+			<?php if(isset($fieldError['user'])) {
+				echo "<tr><td colspan='2'>";
+				widget_errorbox("Username must be at least 3 chars long"); 
+				echo "</td></tr>"; } ?>
 			
-			<label for="user">Username:</label><br />
-			<input type="text" name="user" class="text ui-widget-content ui-corner-all" /><br />
-			<?php if(isset($fieldError['user'])) widget_errorbox("Username must be at least 3 characters long"); ?><br />
+			<tr height="10px"></tr>
 		
-			<label for="password">Password:</label><br />
-			<input type="password" name="password" class="text ui-widget-content ui-corner-all" /><br />
-			<?php if(isset($fieldError['password'])) widget_errorbox("You have to enter a password!"); ?><br />
+			<tr><td><label for="password">Password:</label></td>
+			<td><input type="password" name="password" class="text ui-widget-content ui-corner-all" /></td></tr>
+			<?php if(isset($fieldError['password'])) {
+				echo "<tr><td colspan='2'>";
+				widget_errorbox("You have to enter a password!"); 
+				echo "</td></tr>"; } ?>
+			</table>
 
 		</fieldset>
 		
@@ -35,24 +49,34 @@
 		<fieldset>
 			<legend>Personal Info</legend>
 
-			<label for="email">E-Mail Address:</label><br />
-			<input type="text" name="email" class="text ui-widget-content ui-corner-all" /><br />
-			<?php if(isset($fieldError['email'])) widget_errorbox("Please enter a valid e-mail"); ?><br />
+			<table>
+			<tr><td width="200px"><label for="email">E-Mail Address:</label></td>
+			<td><input type="text" name="email" class="text ui-widget-content ui-corner-all" /></td></tr>
+			<?php if(isset($fieldError['email'])) {
+				echo "<tr><td colspan='2'>";
+				widget_errorbox("Please enter a valid e-mail address"); 
+				echo "</td></tr>"; } ?>
 
-			<label for="firstname">First Name:</label><br />
-			<input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /><br />
-			<?php if(isset($fieldError['firstname'])) widget_errorbox("Please enter a name"); ?><br />
+			<tr height="10px"></tr>
+
+			<tr><td><label for="firstname">First Name:</label></td>
+			<td><input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /></td></tr>
+			<?php if(isset($fieldError['firstname'])) {
+				echo "<tr><td colspan='2'>";
+				widget_errorbox("Please enter a name"); 
+				echo "</td></tr>"; } ?>
 			
-			<label for="lastname">Last Name:</label><br />
-			<input type="text" name="lastname" class="text ui-widget-content ui-corner-all" /><br />
-			<?php if(isset($fieldError['lastname'])) widget_errorbox("Please enter a name"); ?>
+			<tr height="10px"></tr>
+
+			<tr><td><label for="lastname">Last Name:</label></td>
+			<td><input type="text" name="lastname" class="text ui-widget-content ui-corner-all" /></td></tr>
+			<?php if(isset($fieldError['lastname'])) {
+				echo "<tr><td colspan='2'>";
+				widget_errorbox("Please enter a name"); 
+				echo "</td></tr>"; } ?>
+
+			</table>
 		</fieldset>
 	</form>
-
-	<br />
-
-	<?php widget_infobox("<a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a>"); ?>
-		</div>
-	</div>
 
 <?php } ?>

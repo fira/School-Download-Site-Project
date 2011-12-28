@@ -9,7 +9,7 @@
 	<head>
 		<title></title>
 
-		<link type="text/css" href="jquery-ui-theme/smoothness/jquery-ui.css" rel="stylesheet"/>
+		<link type="text/css" href="jquery-ui-theme/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
 		<link type="text/css" href="css/tablesorter-blue.css" rel="stylesheet"/>
 		<link type="text/css" href="css/style.css" rel="stylesheet"/>
 
