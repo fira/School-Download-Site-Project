@@ -44,13 +44,23 @@ function initRegDialog() {
 						"Submit": function() {$("#reg-form").submit();} 
 					}
 			});			
-
+				
+				/* Fetch the new reg page (with error or success displayed) */
 				HTTPLoadDivSync("reg-dialog", "parts/regform.php");
-
-					$("#reg-form").ajaxForm({target: "#reg-dialog"});
+				/* Enable ajaxForm on the dialog */
+				initRegDialogForm();
 
 				return false;
 			}
+
+/* After a successful load by AJAX, we have to re-initialize the ajaxForm (since the div changed) */
+function initRegDialogForm() {
+	/* Can't be put into initRegDialog, becuase it needs to self-reference. */
+	$("#reg-form").ajaxForm({
+		target: "#reg-dialog",
+		success: initRegDialogForm
+	});
+}
 
 $(function(){	
 	$("#login-button").button().click(initLoginDialog);
