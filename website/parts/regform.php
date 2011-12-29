@@ -50,49 +50,54 @@
 					<!-- Just a separation line. Probably not the right way to do it? -->
 					<tr height="10px"></tr>
 		
-			<tr><td><label for="password">Password:</label></td>
-			<td><input type="password" name="password" class="text ui-widget-content ui-corner-all" /></td></tr>
-			<?php if(isset($fieldError['password'])) {
-				echo "<tr><td colspan='2'>";
-				widget_errorbox("You have to enter a password!"); 
-				echo "</td></tr>"; } ?>
-			</table>
+					<tr><td><label for="password">Password:</label></td>
+						<td><input type="password" name="password" class="text ui-widget-content ui-corner-all" /></td>
+					</tr>
 
-		</fieldset>
-		
-		<br />
+					<?php if(isset($fieldError['password'])) {
+						echo "<tr><td colspan='2'>";
+						widget_errorbox("You have to enter a password!"); 
+						echo "</td></tr>"; } ?>
+				</table>
 
-		<fieldset>
-			<legend>Personal Info</legend>
+			</fieldset>
+			<br />
+			<fieldset>
+				<legend>Personal Info</legend>
 
-			<table>
-			<tr><td width="200px"><label for="email">E-Mail Address:</label></td>
-			<td><input type="text" name="email" class="text ui-widget-content ui-corner-all" /></td></tr>
-			<?php if(isset($fieldError['email'])) {
-				echo "<tr><td colspan='2'>";
-				widget_errorbox("Please enter a valid e-mail address"); 
-				echo "</td></tr>"; } ?>
+				<table>
+					<tr><td width="200px"><label for="email">E-Mail Address:</label></td>
+						<td><input type="text" name="email" class="text ui-widget-content ui-corner-all" /></td>
+					</tr>
 
-			<tr height="10px"></tr>
+					<?php if(isset($fieldError['email'])) {
+						echo "<tr><td colspan='2'>";
+						widget_errorbox("Please enter a valid e-mail address"); 
+						echo "</td></tr>"; } ?>
 
-			<tr><td><label for="firstname">First Name:</label></td>
-			<td><input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /></td></tr>
-			<?php if(isset($fieldError['firstname'])) {
-				echo "<tr><td colspan='2'>";
-				widget_errorbox("Please enter a name"); 
-				echo "</td></tr>"; } ?>
+					<tr height="10px"></tr>
+
+					<tr><td><label for="firstname">First Name:</label></td>
+					<td><input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /></td>
+					</tr>
+
+					<?php if(isset($fieldError['firstname'])) {
+						echo "<tr><td colspan='2'>";
+						widget_errorbox("Please enter a name"); 
+						echo "</td></tr>"; } ?>
 			
-			<tr height="10px"></tr>
+					<tr height="10px"></tr>
 
-			<tr><td><label for="lastname">Last Name:</label></td>
-			<td><input type="text" name="lastname" class="text ui-widget-content ui-corner-all" /></td></tr>
-			<?php if(isset($fieldError['lastname'])) {
-				echo "<tr><td colspan='2'>";
-				widget_errorbox("Please enter a name"); 
-				echo "</td></tr>"; } ?>
+					<tr><td><label for="lastname">Last Name:</label></td>
+					<td><input type="text" name="lastname" class="text ui-widget-content ui-corner-all" /></td>
+					</tr>
 
-			</table>
-		</fieldset>
-	</form>
+					<?php if(isset($fieldError['lastname'])) {
+						echo "<tr><td colspan='2'>";
+						widget_errorbox("Please enter a name"); 
+						echo "</td></tr>"; } ?>
+				</table>
+			</fieldset>
+		</form>
 
 <?php } ?>
