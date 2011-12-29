@@ -1,4 +1,12 @@
 <?php
+	/* parts/regform.php
+		Registration form and its processing
+		This page should normally be loaded through AJAX onto the main page, in a div
+		As such we have to re-include any useful PHP file
+		On the other hand it won't need a header, and the scripts and stylesheets are
+		already included on the main page.
+	*/
+
 	require_once("../utils/display.php");
 
 	/* Check for the entered fields contents if there's some */
@@ -14,25 +22,33 @@
 		/* FIXME Need to query the database to add the user here */
 		echo "I think i lost the database address. Sorry. Yeah, this is a bad placeholder, i know.";
 
+
 	/* If the fields are invalid or empty, we display the form
 	and the associated errors if there's some */
-	} else { ?>
-	<?php widget_infobox("<strong><a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a></strong>", 1); ?>
-	<br />
+	} else {
+		/* Display an infobox to tell the user he should login instead of registering if applicable.
+		The scripts allows to swap from the registration dialog to the login dialog once clicked. */
+		widget_infobox("<strong><a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a></strong>", 1); ?>
+		<br />
 
-	<form id="reg-form" method="post" action="parts/regform.php">
-		<fieldset>
-			<legend>Login Info</legend>
+		<form id="reg-form" method="post" action="parts/regform.php">
+			<fieldset>
+				<legend>Login Info</legend>
 						
-			<table>
-			<tr><td width='200px'><label for="user">Username:</label></td>
-			<td><input type="text" name="user" class="text ui-widget-content ui-corner-all" /></td></tr>
-			<?php if(isset($fieldError['user'])) {
-				echo "<tr><td colspan='2'>";
-				widget_errorbox("Username must be at least 3 chars long"); 
-				echo "</td></tr>"; } ?>
+				<table>
+					<tr><td width='200px'><label for="user">Username:</label></td>
+						<td><input type="text" name="user" class="text ui-widget-content ui-corner-all" /></td>
+					</tr>
+
+					<?php /* In case there's an error, add an errorBox to display it */
+						if(isset($fieldError['user'])) {
+						echo "<tr><td colspan='2'>";
+						widget_errorbox("Username must be at least 3 chars long"); 
+						echo "</td></tr>"; 
+					} ?>
 			
-			<tr height="10px"></tr>
+					<!-- Just a separation line. Probably not the right way to do it? -->
+					<tr height="10px"></tr>
 		
 			<tr><td><label for="password">Password:</label></td>
 			<td><input type="password" name="password" class="text ui-widget-content ui-corner-all" /></td></tr>

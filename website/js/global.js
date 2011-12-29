@@ -1,6 +1,15 @@
-/* Loads the given HTML resource into a specific div */
+/* js/global.js
+	File containing the scripts used on the main page
+	These scripts mostly handle JQuery-UI widgets and AJAX page loading
+*/
+
+
+/* 	Loads the given HTML resource into a specific div 
+	Note that the request is *SYNCHRONOUS* and will block other scripts' execution
+	This might actually be useful in certain situations such as the login box
+	(it prevents the user from validating the dialog before the form is loaded)	*/
 function HTTPLoadDivSync(id, src) {	
-	// Start by replacing the div content by a "Loading"
+	// Start by replacing the div content by a "Loading" (cosmetic, might need to be improved)
 	document.getElementById(id).innerHTML = "<div class='loadingtext'>Loading...</div>";
 	
 	// Issue the HTTP request to fetch the contents
@@ -11,14 +20,27 @@ function HTTPLoadDivSync(id, src) {
 	// Then display the results in the div
 	if(query.status == 200) { 
 		document.getElementById(id).innerHTML = query.responseText;
+	/* In case the server return status is not 200 OK, we display an error
+	It might be wise processing the errors, but this should not be needed in normal operation */
 	} else { 
 		document.getElementById(id).innerHTML = "Sorry, there was an error loading the page. <br />";
 	}
 }
 
 
+	/* FIXME 
+		About the handling of the Login and Registration Dialog
+		For some reason the second dialog would not display properly when the first
+		one was closed. As such, the dialogs are instead destroyed on exit and recreated
+		whenever needed. This should not be needed. 
+		Also, right now, the dialog box's content is reloaded when you re-open it. 
+		Changing the script to open/close the dialogs instead of destroy/creating them
+		would fix that (since the initial load is only done on the dialog creation then)
+	*/
+
 	/* Handling of the Login Dialog */
 function initLoginDialog (){
+				/* Creates the JQuery-UI Dialog widget housing the form */
 				$("#login-dialog").dialog({
 					modal: true,
 					width: 500,
@@ -29,7 +51,7 @@ function initLoginDialog (){
 					}
 				});
 				
-				// Load the dialog contents
+				// Load the form into the dialog
 				HTTPLoadDivSync("login-dialog", "parts/loginform.html");
 				// Bind the form to ajaxForm
 				initLoginDialogForm();
@@ -59,7 +81,7 @@ function initRegDialog() {
 				return false;
 			}
 
-/* After a successful load by AJAX, we have to re-initialize the ajaxForm (since the div changed) */
+/* After a successful load by AJAX, we have to re-initialize the ajaxForm (since the div contents changed) */
 function initRegDialogForm() {
 	/* Can't be put into initRegDialog, becuase it needs to self-reference. */
 	$("#reg-form").ajaxForm({
@@ -76,6 +98,7 @@ function initLoginDialogForm () {
 	});
 }
 
+/* Bind the form opening to the buttons */
 $(function(){	
 	$("#login-button").button().click(initLoginDialog);
 	$( "#reg-button" ).button().click(initRegDialog);

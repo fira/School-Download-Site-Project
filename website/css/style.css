@@ -1,6 +1,13 @@
+/* css/style.css
+	General Website style
+	Since most of the website design should be handled by JQuery-UI and its theme 
+	this stylesheet should be mostly empty.
+*/
+
 .loadingtext {
 	font-size: 200%;
 	text-align: center;
 	font-weight: strong;
 }
 
+/* FIXME The website should definitely have a background. */
