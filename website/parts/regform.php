@@ -6,8 +6,15 @@
 		On the other hand it won't need a header, and the scripts and stylesheets are
 		already included on the main page.
 	*/
-
+	
 	require_once("../utils/display.php");
+
+	/* Used here only: inserts an errorBox in the table */
+	function regform_widget_errorbox($content) {
+		echo "<tr><td colspan='2'>";
+		widget_errorbox($content);
+		echo "</td></tr>";
+	}
 
 	/* Check for the entered fields contents if there's some */
 	if(isset($_POST['user']) && (strlen($_POST['user']) <= 3)) $fieldError['user'] = 1;
@@ -28,7 +35,7 @@
 	} else {
 		/* Display an infobox to tell the user he should login instead of registering if applicable.
 		The scripts allows to swap from the registration dialog to the login dialog once clicked. */
-		widget_infobox("<strong><a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a></strong>", 1); ?>
+		widget_infobox("<strong><a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a></strong>", true); ?>
 		<br />
 
 		<form id="reg-form" method="post" action="parts/regform.php">
@@ -37,27 +44,21 @@
 						
 				<table>
 					<tr><td width='200px'><label for="user">Username:</label></td>
-						<td><input type="text" name="user" class="text ui-widget-content ui-corner-all" /></td>
+						<td><?php insertField("user");?></td>
 					</tr>
 
 					<?php /* In case there's an error, add an errorBox to display it */
-						if(isset($fieldError['user'])) {
-						echo "<tr><td colspan='2'>";
-						widget_errorbox("Username must be at least 3 chars long"); 
-						echo "</td></tr>"; 
-					} ?>
+						if(isset($fieldError['user'])) regform_widget_errorbox("Username must be at least 3 chars long"); 
+					?>
 			
 					<!-- Just a separation line. Probably not the right way to do it? -->
 					<tr height="10px"></tr>
 		
 					<tr><td><label for="password">Password:</label></td>
-						<td><input type="password" name="password" class="text ui-widget-content ui-corner-all" /></td>
+						<td><?php insertField("password", true, true);?></td>
 					</tr>
 
-					<?php if(isset($fieldError['password'])) {
-						echo "<tr><td colspan='2'>";
-						widget_errorbox("You have to enter a password!"); 
-						echo "</td></tr>"; } ?>
+					<?php if(isset($fieldError['password'])) regform_widget_errorbox("You have to enter a password!"); ?>
 				</table>
 
 			</fieldset>
@@ -67,35 +68,25 @@
 
 				<table>
 					<tr><td width="200px"><label for="email">E-Mail Address:</label></td>
-						<td><input type="text" name="email" class="text ui-widget-content ui-corner-all" /></td>
+						<td><?php insertField("email");?></td>
 					</tr>
 
-					<?php if(isset($fieldError['email'])) {
-						echo "<tr><td colspan='2'>";
-						widget_errorbox("Please enter a valid e-mail address"); 
-						echo "</td></tr>"; } ?>
-
+					<?php if(isset($fieldError['email'])) regform_widget_errorbox("Please enter a valid email"); ?>
 					<tr height="10px"></tr>
 
 					<tr><td><label for="firstname">First Name:</label></td>
-					<td><input type="text" name="firstname" class="text ui-widget-content ui-corner-all" /></td>
+					<td><?php echo insertField("firstname");?></td>
 					</tr>
 
-					<?php if(isset($fieldError['firstname'])) {
-						echo "<tr><td colspan='2'>";
-						widget_errorbox("Please enter a name"); 
-						echo "</td></tr>"; } ?>
+					<?php if(isset($fieldError['firstname'])) regform_widget_errorbox("Please enter a name"); ?>
 			
 					<tr height="10px"></tr>
 
 					<tr><td><label for="lastname">Last Name:</label></td>
-					<td><input type="text" name="lastname" class="text ui-widget-content ui-corner-all" /></td>
+					<td><?php echo insertField("lastname");?></td>
 					</tr>
 
-					<?php if(isset($fieldError['lastname'])) {
-						echo "<tr><td colspan='2'>";
-						widget_errorbox("Please enter a name"); 
-						echo "</td></tr>"; } ?>
+					<?php if(isset($fieldError['lastname'])) regform_widget_errorbox("Please enter a name"); ?>
 				</table>
 			</fieldset>
 		</form>
