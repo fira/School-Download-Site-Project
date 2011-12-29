@@ -45,6 +45,8 @@ function initLoginDialog (){
 					modal: true,
 					width: 500,
 					height: 400,
+					draggable: false,
+					resizable: false,
 					buttons: {
 						"Cancel": function(){ $(this).dialog("destroy"); }, 
 						"Submit": function(){ $("#login-form").submit(); }
@@ -67,6 +69,8 @@ function initRegDialog() {
 					modal: true,
 					width: 500,
 					height: 550,
+					draggable: false,
+					resizable: false,
 					buttons: {
 						"Cancel": function() {$(this).dialog("destroy");}, 
 						"Submit": function() {$("#reg-form").submit();} 
