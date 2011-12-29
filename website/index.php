@@ -6,6 +6,7 @@
 	*/ 
 	
 	// We have to include all the neccessary files
+	require_once("utils/config.php");
 	require_once("utils/display.php");
 ?>
 
@@ -14,13 +15,13 @@
 
 <html>
 	<head>
-		<title></title>
+		<title><?php echo $_CONFIG['title']; ?></title>
 
 		<!-- JQuery script -->
 		<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 
 		<!-- JQuery-UI script and theme -->
-		<link type="text/css" href="jquery-ui-theme/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+		<link type="text/css" href="<?php echo $_CONFIG['jqui-theme']; ?>" rel="stylesheet"/>
 		<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 
 		<!-- JQuery Tablesorter plugin and its theme, to be used on the downloads list -->
