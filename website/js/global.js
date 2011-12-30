@@ -44,7 +44,7 @@ function initLoginDialog (){
 				$("#login-dialog").dialog({
 					modal: true,
 					width: 500,
-					height: 400,
+					height: 450,
 					draggable: false,
 					resizable: false,
 					buttons: {
@@ -54,7 +54,7 @@ function initLoginDialog (){
 				});
 				
 				// Load the form into the dialog
-				HTTPLoadDivSync("login-dialog", "parts/loginform.html");
+				HTTPLoadDivSync("login-dialog", "parts/loginform.php");
 				// Bind the form to ajaxForm
 				initLoginDialogForm();
 
