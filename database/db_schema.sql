@@ -3,6 +3,7 @@
 
 CREATE TABLE downloads 
     ( 
+     id_dl NUMBER ,
      id_user NUMBER , 
      id_file NUMBER , 
      dldate NUMBER 
@@ -57,6 +58,9 @@ CREATE TABLE users
 
 ALTER TABLE users 
     ADD CONSTRAINT users_PK PRIMARY KEY ( id_user ) ;
+    
+ALTER TABLE users 
+    ADD CONSTRAINT downloads_PK PRIMARY KEY ( id_dl ) ;
 
 
 
