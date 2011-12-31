@@ -38,7 +38,7 @@ CREATE TABLE users
     ( 
      id_user NUMBER  NOT NULL , 
      callsign VARCHAR2 (20)  NOT NULL , 
-     password VARCHAR2 (40)  NOT NULL , 
+     password VARCHAR2 (62)  NOT NULL , 
      lastname VARCHAR2 (50)  NOT NULL , 
      firstname VARCHAR2 (50)  NOT NULL , 
      mail VARCHAR2 (30)  NOT NULL 
