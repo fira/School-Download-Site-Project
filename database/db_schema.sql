@@ -3,10 +3,10 @@
 
 CREATE TABLE downloads 
     ( 
-     id_dl NUMBER NOT NULL ,
+     id_download NUMBER NOT NULL ,
      id_user NUMBER NOT NULL , 
      id_file NUMBER NOT NULL , 
-     dldate NUMBER 
+     download_date NUMBER 
     ) 
 ;
 
@@ -20,7 +20,7 @@ CREATE TABLE files
      filesize NUMBER  NOT NULL , 
      id_user NUMBER NOT NULL ,
      id_file NUMBER  NOT NULL , 
-     timestamp NUMBER NOT NULL , 
+     upload_date NUMBER NOT NULL , 
      downloads NUMBER NOT NULL , 
      description VARCHAR2 (100) 
     ) 
@@ -37,7 +37,7 @@ ALTER TABLE files
 CREATE TABLE users 
     ( 
      id_user NUMBER  NOT NULL , 
-     callsign VARCHAR2 (20)  NOT NULL , 
+     username VARCHAR2 (20)  NOT NULL , 
      password VARCHAR2 (62)  NOT NULL , 
      lastname VARCHAR2 (50)  NOT NULL , 
      firstname VARCHAR2 (50)  NOT NULL , 
@@ -51,7 +51,7 @@ ALTER TABLE users
     ADD CONSTRAINT users_PK PRIMARY KEY ( id_user ) ;
     
 ALTER TABLE users 
-    ADD CONSTRAINT downloads_PK PRIMARY KEY ( id_dl ) ;
+    ADD CONSTRAINT downloads_PK PRIMARY KEY ( id_download ) ;
 
 
 
