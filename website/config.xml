@@ -3,11 +3,23 @@
 	<!-- Title of the main website page -->
 	<title>Unnamed Up/Download website</title>
 
-
-	<!-- 
-		Path to the JQuery-UI Theme CSS File to be used 
+	<!-- Path to the JQuery-UI Theme CSS File to be used 
 		Note that JQuery-UI Themes systeme requires the images/ directory to
-		be in the same directory as the CSS file 	
-	-->
+		be in the same directory as the CSS file -->
 	<jqui-theme>jquery-ui-theme/custom-theme/jquery-ui-1.8.16.custom.css</jqui-theme>
+	
+	<!-- Blowfish salt string to be used for password encryption
+		Don't change this on the fly or existing passwords won't be recognized anymore.
+		Should be Alphanum (or whole login system will break), 22 characters long.  -->
+	<salt>salu7c357moifira</salt>
+	
+	<!-- Database host -->
+	<oracle-host>localhost</oracle-host>
+	<!-- Database user -->
+	<oracle-user>loyauf</oracle-user>
+	<!-- Database password -->
+	<oracle-passwd>merlaud</oracle-passwd>
+	<!-- Database identifier(?) -->
+	<oracle-id>XE</oracle-id>
+	
 </root>
