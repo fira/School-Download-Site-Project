@@ -6,7 +6,7 @@
 	*/ 
 	
 	// We have to include all the neccessary files
-	require_once("utils/config.php");
+	require_once("utils/database.php");
 	require_once("utils/display.php");
 ?>
 
@@ -57,7 +57,7 @@
 		<form enctype="multipart/form-data" action="parts/uploader.php" method="POST">
 			<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
 			Choose a file to upload: <input name="uploadedfile" type="file"/><br />
-			<input type="image" alt="Upload" width="158" height="45" src="images/upload/upload_button.png"/>
+			<input type="image" alt="Upload" +width="158" height="45" src="images/upload/upload_button.png"/>
 		
 			<label for="file_cat">File's Type</label><br />
 			<select name="file_cat" id="category">
@@ -65,7 +65,6 @@
 				<option value="book">Book (PDF, DOC...)</option>
 				<option value="video">Video (AVI, MP4...)</option>
 				<option value="music">Music (MP3, WMA...)</option>
-				<option value="soft">Software (EXE, MSI...)</option>
 				<option value="soft">Software (EXE, MSI...)</option>
 				<option value="picture">Picture (JPEG, PNG...)</option>
 			</select>

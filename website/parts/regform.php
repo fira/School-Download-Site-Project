@@ -7,7 +7,9 @@
 		already included on the main page.
 	*/
 	
+	require_once("../utils/config.php");
 	require_once("../utils/display.php");
+	require_once("../utils/database.php");
 
 	/* Used here only: inserts an errorBox in the table */
 	function regform_widget_errorbox($content) {
@@ -17,7 +19,7 @@
 	}
 
 	/* Check for the entered fields contents if there's some */
-	if(isset($_POST['user']) && (strlen($_POST['user']) <= 3)) $fieldError['user'] = 1;
+	if(isset($_POST['user']) && ((strlen($_POST['user']) < 3) || !ctype_alnum($_POST['user']))) $fieldError['user'] = 1;
 	if(isset($_POST['password']) && $_POST['password'] == "") $fieldError['password'] = 1;
 	if(isset($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $fieldError['email'] = 1;
 	if(isset($_POST['firstname']) && $_POST['firstname'] == "") $fieldError['firstname'] = 1;
@@ -26,10 +28,19 @@
 	/* If the fields are valid, we can go on to the registration process */
 	if(isset($_POST['user'], $_POST['password'], $_POST['email'], $_POST['firstname'], $_POST['lastname']) && !(isset($fieldError))) {
 
-		/* FIXME Need to query the database to add the user here */
-		echo "I think i lost the database address. Sorry. Yeah, this is a bad placeholder, i know.";
+		if(!db_connect()) { echo "Error while connecting to the database. Try again later? <br />"; 
+		} else {
+			/* Constructs the query and send it to the database */
+			$hashedpass = crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']);
+			$query = oci_parse($db_id, "INSERT INTO users(id_user,username,password,lastname,firstname,mail) VALUES(usersIDs.NEXTVAL, '" . $_POST['user'] . "', :pass, :lastname, :firstname, '". $_POST['email'] . "')");
+			oci_bind_by_name($query, ':lastname', $_POST['lastname']);
+			oci_bind_by_name($query, ':firstname', $_POST['firstname']);
+			oci_bind_by_name($query, ':pass', $hashedpass);
+			$result = oci_execute($query);
 
-
+			echo "Registration complete! <br />";
+		}
+			
 	/* If the fields are invalid or empty, we display the form
 	and the associated errors if there's some */
 	} else {
@@ -48,7 +59,7 @@
 					</tr>
 
 					<?php /* In case there's an error, add an errorBox to display it */
-						if(isset($fieldError['user'])) regform_widget_errorbox("Username must be at least 3 chars long"); 
+						if(isset($fieldError['user'])) regform_widget_errorbox("Username must be at least 3 chars long and alphanum"); 
 					?>
 			
 					<!-- Just a separation line. Probably not the right way to do it? -->

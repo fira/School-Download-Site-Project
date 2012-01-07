@@ -50,7 +50,7 @@ CREATE TABLE users
 ALTER TABLE users 
     ADD CONSTRAINT users_PK PRIMARY KEY ( id_user ) ;
     
-ALTER TABLE users 
+ALTER TABLE downloads 
     ADD CONSTRAINT downloads_PK PRIMARY KEY ( id_download ) ;
 
 

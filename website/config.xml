@@ -14,11 +14,11 @@
 	<salt>salu7c357moifira</salt>
 	
 	<!-- Database host -->
-	<oracle-host>localhost</oracle-host>
+	<oracle-host>blade06.esiee.fr</oracle-host>
 	<!-- Database user -->
 	<oracle-user>loyauf</oracle-user>
 	<!-- Database password -->
-	<oracle-passwd>merlaud</oracle-passwd>
+	<oracle-passwd>merlau</oracle-passwd>
 	<!-- Database identifier(?) -->
 	<oracle-id>XE</oracle-id>
 	
