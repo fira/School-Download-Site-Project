@@ -13,6 +13,8 @@
     	echo "The server doens't support Blowfish! Blowfish is required for the login system!<br />";
     	exit();
     }
+    // Starts the Session for the user, which is used for login
+   	session_start();
 
 
 	/* This is just a config file, so let's keep it simple.
