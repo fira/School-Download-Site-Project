@@ -106,5 +106,11 @@ function initLoginDialogForm () {
 $(function(){	
 	$("#login-button").button().click(initLoginDialog);
 	$( "#reg-button" ).button().click(initRegDialog);
+
+	$("#logout-button").button().click(function() {
+		query = new XMLHttpRequest();
+		query.open("GET", "parts/logout.php", false);
+		query.send();
+	});
 });
 

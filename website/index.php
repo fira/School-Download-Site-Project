@@ -46,35 +46,50 @@
 	-->
 
 	<body>
-		<div id="reg-dialog" title="Signing up"></div>
-		<div id="login-dialog" title="Signing in"></div>
+		<?php 
+			/* Banner should be here */
+	
+			/* Page header, showing the login info */
+			if(!isset($_SESSION['userid'])) { ?>
+				<div id="reg-dialog" title="Signing up"></div>
+				<div id="login-dialog" title="Signing in"></div>
+				<button id="reg-button">Sign up</button>
+				<button id="login-button">Sign in</button>
+			<?php } else { ?>
+				Logged in as: <?php echo $_SESSION['username']; ?>
+				<button id="logout-button">Log out</button>
+			<?php } 
 
-		<button id="reg-button">Sign up</button>
-		<button id="login-button">Sign in</button>
+	
+			/* Actual page body - to be displayed only to registered users */
+			?><div id="contents">
+			<?php if(isset($_SESSION['userid'])) {	?>
+				
+				<div id="upload" title="File Upload">
 		
-		<div id="upload" title="File Upload">
+					<form enctype="multipart/form-data" action="parts/uploader.php" method="POST">
+						<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+						Choose a file to upload: <input name="uploadedfile" type="file"/><br />
+						<input type="image" alt="Upload" width="158" height="45" src="images/upload/upload_button.png"/>
 		
-		<form enctype="multipart/form-data" action="parts/uploader.php" method="POST">
-			<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-			Choose a file to upload: <input name="uploadedfile" type="file"/><br />
-			<input type="image" alt="Upload" +width="158" height="45" src="images/upload/upload_button.png"/>
-		
-			<label for="file_cat">File's Type</label><br />
-			<select name="file_cat" id="category">
-				<option value="archive">Archive (RAR, ZIP...)</option>
-				<option value="book">Book (PDF, DOC...)</option>
-				<option value="video">Video (AVI, MP4...)</option>
-				<option value="music">Music (MP3, WMA...)</option>
-				<option value="soft">Software (EXE, MSI...)</option>
-				<option value="picture">Picture (JPEG, PNG...)</option>
-			</select>
+						<label for="file_cat">File's Type</label><br />
+						<select name="file_cat" id="category">
+							<option value="archive">Archive (RAR, ZIP...)</option>
+							<option value="book">Book (PDF, DOC...)</option>
+							<option value="video">Video (AVI, MP4...)</option>
+							<option value="music">Music (MP3, WMA...)</option>
+							<option value="soft">Software (EXE, MSI...)</option>
+							<option value="picture">Picture (JPEG, PNG...)</option>
+						</select>
 			
-			<label for="desc">File's Description</label>
-			<input type="text" name="desc" id="desc" placeholder="Maximum 40 characters" size="40" maxlength="40" />
-	   
-		</form>
-		
-		</div>
-		
+						<label for="desc">File's Description</label>
+						<input type="text" name="desc" id="desc" placeholder="Maximum 40 characters" size="40" maxlength="40" />		   
+					</form>
+				</div>
+
+			<?php } else { ?>
+			You are not logged in! Please login with the buttons at the top of the page
+			<?php } ?>
+			</div>
 	</body>
 </html>
