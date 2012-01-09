@@ -20,13 +20,13 @@
 		$result = oci_execute($query);
 		db_close();
 
-		if(!$result) { $loginresult = 2;
+		if((!$result) || !($data = oci_fetch_array($query))) { $loginresult = 2;
 		} else { 
-			$data = oci_fetch_array($query);
 			$_SESSION['userid'] = $data['ID_USER'];
 			$_SESSION['username'] = $data['USERNAME'];
 			
 			// FIXME What to do once logged in ???? Should reload the main page, maybe ?
+			echo "Logged in ok. Reload page please.";
 			$loginresult = 0;
 		}
 
