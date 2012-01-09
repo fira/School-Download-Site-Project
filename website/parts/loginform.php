@@ -25,8 +25,9 @@
 			$_SESSION['userid'] = $data['ID_USER'];
 			$_SESSION['username'] = $data['USERNAME'];
 			
-			// FIXME What to do once logged in ???? Should reload the main page, maybe ?
-			echo "Logged in ok. Reload page please.";
+			// FIXME Should load only the contents id div element instead of reloading the whole page
+			?><script type="text/javascript">window.location.reload()</script>
+			<?php echo "Log in OK - Reloading the main page...";
 			$loginresult = 0;
 		}
 

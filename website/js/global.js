@@ -3,7 +3,6 @@
 	These scripts mostly handle JQuery-UI widgets and AJAX page loading
 */
 
-
 /* 	Loads the given HTML resource into a specific div 
 	Note that the request is *SYNCHRONOUS* and will block other scripts' execution
 	This might actually be useful in certain situations such as the login box
@@ -26,17 +25,6 @@ function HTTPLoadDivSync(id, src) {
 		document.getElementById(id).innerHTML = "Sorry, there was an error loading the page. <br />";
 	}
 }
-
-
-	/* FIXME 
-		About the handling of the Login and Registration Dialog
-		For some reason the second dialog would not display properly when the first
-		one was closed. As such, the dialogs are instead destroyed on exit and recreated
-		whenever needed. This should not be needed. 
-		Also, right now, the dialog box's content is reloaded when you re-open it. 
-		Changing the script to open/close the dialogs instead of destroy/creating them
-		would fix that (since the initial load is only done on the dialog creation then)
-	*/
 
 	/* Handling of the Login Dialog */
 function initLoginDialog (){
@@ -111,6 +99,9 @@ $(function(){
 		query = new XMLHttpRequest();
 		query.open("GET", "parts/logout.php", false);
 		query.send();
+		
+		/* FIXME We should just reload the contents div instead of the whole page */
+		window.location.reload();
 	});
 });
 
