@@ -38,43 +38,11 @@
 		<script type="text/javascript" src="js/global.js"></script>
 	</head>
 
-
-
-	<!-- 
-		Note that because most elements are embedded via AJAX, or handled by JQuery, 
-		the body of the main page should be fairly simple. 
-	-->
-
 	<body>
-		<div id="reg-dialog" title="Signing up"></div>
-		<div id="login-dialog" title="Signing in"></div>
-
-		<button id="reg-button">Sign up</button>
-		<button id="login-button">Sign in</button>
-		
-		<div id="upload" title="File Upload">
-		
-		<form enctype="multipart/form-data" action="parts/uploader.php" method="POST">
-			<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-			Choose a file to upload: <input name="uploadedfile" type="file"/><br />
-			<input type="image" alt="Upload" +width="158" height="45" src="images/upload/upload_button.png"/>
-		
-			<label for="file_cat">File's Type</label><br />
-			<select name="file_cat" id="category">
-				<option value="archive">Archive (RAR, ZIP...)</option>
-				<option value="book">Book (PDF, DOC...)</option>
-				<option value="video">Video (AVI, MP4...)</option>
-				<option value="music">Music (MP3, WMA...)</option>
-				<option value="soft">Software (EXE, MSI...)</option>
-				<option value="picture">Picture (JPEG, PNG...)</option>
-			</select>
-			
-			<label for="desc">File's Description</label>
-			<input type="text" name="desc" id="desc" placeholder="Maximum 40 characters" size="40" maxlength="40" />
-	   
-		</form>
-		
+		<!-- Banner should be here -->
+	
+		<div id="contents">
+			<?php include("parts/main.php"); ?>
 		</div>
-		
 	</body>
 </html>

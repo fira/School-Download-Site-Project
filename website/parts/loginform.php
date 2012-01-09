@@ -5,14 +5,31 @@
 	*/
 
 	require_once("../utils/display.php");
+	require_once("../utils/config.php");
+	require_once("../utils/database.php");
 
 	/* If we validated the form already */
 	if(isset($_POST['user']) && (isset($_POST['password'])) && $_POST['user'] != "" && $_POST['password'] != "") {
+		
+		/* FIXME The query won't work using oci_bind_by_name for some reason?? 
+		And this is badly prone to SQL Injection without it */
+		db_connect();
+		$query = oci_parse($db_id, "SELECT * FROM users WHERE username='". $_POST['user']. "' AND password='" . crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']) . "'" );
+		//oci_bind_by_name($query, ':user', $_POST['user']);
+		//oci_bind_by_name($query, ':password', crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']));
+		$result = oci_execute($query);
+		db_close();
 
-		/* We have to do the Database Query and check here */
-		//echo "Plaaaaaaace...wait for it...holder!<br />";
-		/* For the sake of testing, we'll assume it's always invalid */
-		$loginresult = 2;
+		if((!$result) || !($data = oci_fetch_array($query))) { $loginresult = 2;
+		} else { 
+			$_SESSION['userid'] = $data['ID_USER'];
+			$_SESSION['username'] = $data['USERNAME'];
+			
+			// FIXME Should load only the contents id div element instead of reloading the whole page
+			?><script type="text/javascript">window.location.reload()</script>
+			<?php echo "Log in OK - Reloading the main page...";
+			$loginresult = 0;
+		}
 
 	} else { $loginresult = 1; }
 

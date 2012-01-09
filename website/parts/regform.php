@@ -17,6 +17,12 @@
 		widget_errorbox($content);
 		echo "</td></tr>";
 	}
+	
+	/* Yes, the command structure is retarded..
+		First we check for input errors, setting the fieldError array
+		Then we attempt to query the database to add the user, and possibly updates errors
+		And finally we display the form and the errors
+	*/
 
 	/* Check for the entered fields contents if there's some */
 	if(isset($_POST['user']) && ((strlen($_POST['user']) < 3) || !ctype_alnum($_POST['user']))) $fieldError['user'] = 1;
@@ -30,20 +36,27 @@
 
 		if(!db_connect()) { echo "Error while connecting to the database. Try again later? <br />"; 
 		} else {
-			/* Constructs the query and send it to the database */
-			$hashedpass = crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']);
-			$query = oci_parse($db_id, "INSERT INTO users(id_user,username,password,lastname,firstname,mail) VALUES(usersIDs.NEXTVAL, '" . $_POST['user'] . "', :pass, :lastname, :firstname, '". $_POST['email'] . "')");
-			oci_bind_by_name($query, ':lastname', $_POST['lastname']);
-			oci_bind_by_name($query, ':firstname', $_POST['firstname']);
-			oci_bind_by_name($query, ':pass', $hashedpass);
-			$result = oci_execute($query);
+			/* We have to check there isnt an user by that name in the database */
+			if(oci_execute(oci_parse($db_id, "SELECT COUNT(username) FROM users WHERE username=" . $_POST['user']))) {
+				$fieldError['user'] = 2;
+			} else {			
+				/* Constructs the query and send it to the database */
+				$hashedpass = crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']);
+				$query = oci_parse($db_id, "INSERT INTO users(id_user,username,password,lastname,firstname,mail) VALUES(usersIDs.NEXTVAL, '" . $_POST['user'] . "', :pass, :lastname, :firstname, '". $_POST['email'] . "')");
+				oci_bind_by_name($query, ':lastname', $_POST['lastname']);
+				oci_bind_by_name($query, ':firstname', $_POST['firstname']);
+				oci_bind_by_name($query, ':pass', $hashedpass);
+				$result = oci_execute($query);
 
-			echo "Registration complete! <br />";
+			echo "Registration complete! <a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">You can now login.</a> <br />";
+			}
 		}
 			
 	/* If the fields are invalid or empty, we display the form
 	and the associated errors if there's some */
-	} else {
+	} 
+	
+	if(!isset($_POST['user'], $_POST['password'], $_POST['email'], $_POST['firstname'], $_POST['lastname']) || (isset($fieldError))) {
 		/* Display an infobox to tell the user he should login instead of registering if applicable.
 		The scripts allows to swap from the registration dialog to the login dialog once clicked. */
 		widget_infobox("<strong><a href='#' onclick=\"$('#reg-dialog').dialog('destroy'); initLoginDialog();\">Got an account? Sign in!</a></strong>", true); ?>
@@ -59,7 +72,10 @@
 					</tr>
 
 					<?php /* In case there's an error, add an errorBox to display it */
-						if(isset($fieldError['user'])) regform_widget_errorbox("Username must be at least 3 chars long and alphanum"); 
+						if(isset($fieldError['user'])) {
+							if($fieldError['user'] == 1) { regform_widget_errorbox("Username must be at least 3 chars long and alphanum"); 
+							} else regform_widget_errorbox("This user name already exists!");
+						}
 					?>
 			
 					<!-- Just a separation line. Probably not the right way to do it? -->

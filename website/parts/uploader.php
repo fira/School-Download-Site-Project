@@ -5,6 +5,8 @@
 	of the files in an array and save the uploaded files in the /uploads directory
 	*/
 	
+	require_once("../utils/database.php");
+	
 	// Where the file is going to be placed 
 	
 	$target_path = "uploads/";
@@ -18,7 +20,7 @@
 	
 	if(isset($_POST['file_cat'], $_POST['desc'] && (($_POST['file_cat']) && $_POST['desc'])) {
 	
-	$exist = 'SELECT COUNT(name) FROM files WHERE name =' .$_FILES['name'];
+	$exist = oci_parse($db_id, 'SELECT COUNT(name) FROM files WHERE name =' .$_FILES['name']);
 	$same_files = oci_execute($exist)
 	if ($same_files != 0) {
 		$_FILES['name'] = $same_files."-"$_FILES['name'];
@@ -35,7 +37,7 @@
 		} else {
 			/* Constructs the query and send it to the database */	
 	
-	$query = oci_parse($db_id, "INSERT INTO files(name,type,filesize,id_user,id_file,upload_date,downloads,description) VALUES('" . $_FILES['name'] . "','" . $_POST['file_cat'] . "','" . $_FILES['size'] . "', , filesIDs.NEXTVAL, '" . date("F j, Y, g:i a") . "', ,'" . $_POST['desc'] . "')");
+	$query = oci_parse($db_id, "INSERT INTO files(name,type,filesize,id_user,id_file,upload_date,downloads,description) VALUES('" . $_FILES['name'] . "','" . $_POST['file_cat'] . "','" . $_FILES['size'] . "','" . $_SESSION['userid'] . "', filesIDs.NEXTVAL, '" . date("F j, Y, g:i a") . "', ,'" . $_POST['desc'] . "')");
 
 
 ?>
