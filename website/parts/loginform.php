@@ -11,21 +11,23 @@
 	/* If we validated the form already */
 	if(isset($_POST['user']) && (isset($_POST['password'])) && $_POST['user'] != "" && $_POST['password'] != "") {
 		
+		/* FIXME The query won't work using oci_bind_by_name for some reason?? 
+		And this is badly prone to SQL Injection without it */
 		db_connect();
-		$query = oci_parse($db_id, "SELECT * FROM users WHERE username=:user AND password=:password");
-		oci_bind_by_name($query, ':user', $_POST['user']);
-		oci_bind_by_name($query, ':password', crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']));
+		$query = oci_parse($db_id, "SELECT * FROM users WHERE username='". $_POST['user']. "' AND password='" . crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']) . "'" );
+		//oci_bind_by_name($query, ':user', $_POST['user']);
+		//oci_bind_by_name($query, ':password', crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']));
 		$result = oci_execute($query);
 		db_close();
-	
-		/* FIXME this part needs to be prooftested with an actual oracle system */
-		if(!$result['id_user']) { $loginresult = 2;
+
+		if(!$result) { $loginresult = 2;
 		} else { 
-			$_SESSION['userid'] = $result['id_user'];
-			$_SESSION['username'] = $result['username'];
+			$data = oci_fetch_array($query);
+			$_SESSION['userid'] = $data['ID_USER'];
+			$_SESSION['username'] = $data['USERNAME'];
 			
 			// FIXME What to do once logged in ???? Should reload the main page, maybe ?
-			echo "Erm. Login Successful. Look, a placeholder !";
+			$loginresult = 0;
 		}
 
 	} else { $loginresult = 1; }
