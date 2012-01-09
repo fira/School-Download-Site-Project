@@ -41,7 +41,7 @@
 		If autoReset is set to true (default), the field will retain previous POST values if applicable
 		The type is "text" by default, set $password to true to make it a password field instead
 	*/
-	function insertField($name, $autoReset=true, $password=false) {
+	function insertField($name, $autoReset=true, $password=false, $opt="") {
 		/* Inserts the field type */
 		echo "<input type='";
 		if($password) echo "password"; else echo "text";
@@ -50,7 +50,7 @@
 		/* If its an autoReset'd field, add the value attribute with previous value */
 		if($autoReset && isset($_POST[$name])) echo " value='" . $_POST[$name] . "'";
 		/* Finally adds JQuery-UI classes to make it have the selected theme */
-		echo " class='text ui-widget-content ui-corner-all' />";
+		echo " class='text ui-widget-content ui-corner-all' $opt/>";
 		return;
 	}
 
