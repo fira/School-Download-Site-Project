@@ -40,9 +40,50 @@
 
 	<body>
 		<!-- Banner should be here -->
+		<div id="main">
+		<div id="topbanner">
+			<img src="images/logo.png"/>
+		</div>
+    <div class="box">
+    	<div class="border-top">
+      	<div class="border-right">
+        	<div class="border-bot">
+          	<div class="border-left">
+            	<div class="left-top-corner">
+              	<div class="right-top-corner">
+                	<div class="right-bot-corner">
+                  	<div class="left-bot-corner">
+	<div class="inside">
+	<div class="banner">
+        <img src="images/design/main-banner.jpg" alt="Website banner">
+    </div>					
+		<div id="content">
+			<div class="wrapper">
+                <div class="mainContent">
+				
+		
 	
 		<div id="contents">
 			<?php include("parts/main.php"); ?>
 		</div>
+		
+				</div>
+			</div>
+		</div>
+	
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+		</div>
+	</div>
+	<div id="footer">
+	Merlau Copyright
+	</div>
+	</div>		
 	</body>
 </html>
