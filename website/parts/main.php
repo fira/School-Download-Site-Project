@@ -20,7 +20,6 @@
 			<div id="upload">
 				<form enctype="multipart/form-data" action="parts/uploader.php" method="POST">
 					<table><tr><td>
-					<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
 					<select name="file_cat" id="category">
 						<option value="undefined">--Type--</option>
 						<option value="archive">Archive (RAR, ZIP...)</option>
