@@ -4,15 +4,9 @@
 
 	/* Login info */
 	if(!isset($_SESSION['userid'])) { ?>
-		<div id="reg-dialog" title="Signing up"></div>
-		<div id="login-dialog" title="Signing in"></div>
-		<button class="floatbutton" id="reg-button">Sign up</button>
-		<button class="floatbutton" id="login-button">Sign in</button>
-
 		You are not logged in! Please login with the buttons at the top of the page
-
 	<?php } else { ?>
-		<button id="logout-button" class="floatbutton">Log out</button><br />
+
 		<?php widget_infobox("Currently logged in as: ". $_SESSION['username'], true, "userinfobox"); ?><br />
 				
 		<fieldset class="mainfieldset">

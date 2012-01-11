@@ -39,6 +39,17 @@
 	</head>
 
 	<body>
+	
+	<?php 
+		if(isset($_SESSION['userid'])) { ?>
+		<button id="logout-button">Log out</button><br />
+	<?php } else { ?>
+		<div id="reg-dialog" title="Signing up"></div>
+		<div id="login-dialog" title="Signing in"></div>
+		<button class="floatbutton" id="reg-button">Sign up</button>
+		<button class="floatbutton" id="login-button">Sign in</button>
+	<?php } ?>
+		
 		<!-- Banner should be here -->
 		<div id="main">
 		<div id="topbanner">
