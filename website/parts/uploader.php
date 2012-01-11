@@ -20,7 +20,9 @@
 	$filetmp = $_FILES['uploadedfile']['tmp_name'];		// The file's current name in the temporary directory
 	$filetype = $_POST['file_cat'];						// The uploaded file's type 
 
-	/* FIXME We should check if the file's not big enough before proceeding */
+	/* FIXME We should check if the file's too big before proceeding */
+
+	if(!$filename) exit();
 
 	/* Check if a file (with its description and category) was browsed to be uploaded */
 	if(!isset($_POST['desc'])) $_POST['desc'] = "";
