@@ -43,7 +43,7 @@
 		echo "<td>" . $entry['UPLOAD_DATE'] . "</td>";
 		echo "<td>" . $entry['DOWNLOADS'] . "</td>";
 		echo "<td>" . $entry['DESCRIPTION'] . "</td>";
-		echo "<td><a href='uploads/" . $entry['NAME'] . "'>Download!</a></td>";
+		echo "<td><a href='parts/download.php?id=" . $entry['ID_FILE'] . "'>Download!</a></td>";
 		echo "</tr>";
 	}
 
