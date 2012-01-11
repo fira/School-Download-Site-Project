@@ -45,7 +45,7 @@
 
 		<fieldset class="mainfieldset">
 			<legend>Search for files</legend>
-			<form method="POST" action="parts/search.php">
+			<form id="search-form" method="POST" action="parts/search.php">
 				<table width="100%"><tr>
 					<td><?php insertField("text"); ?></td>
 					<div id="searchradio">
@@ -56,5 +56,10 @@
 				</tr></table>
 			</form>
 		</fieldset>
+
+		<br />
+		
+				<span id="searchresults">
+				</span>
 
 <?php } ?>
