@@ -8,14 +8,15 @@
 	require_once("../utils/database.php");
 
 
-
-
-
+	/* Get the status of the radio buttons */
+	if($_POST['selection'] == "user") {
+		$filter = " AND id_user = " . $_SESSION['userid'];
+	} else { $filter = ""; }
 
 	$request = '%' . $_POST['text'] . '%';
 
 	db_connect();
-	$query = oci_parse($db_id, "SELECT * FROM files WHERE name LIKE :request");
+	$query = oci_parse($db_id, "SELECT * FROM files WHERE name LIKE :request" . $filter);
 	oci_bind_by_name($query, ':request', $request);
 	
 	if(!oci_execute($query)) exit();
