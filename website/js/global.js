@@ -106,7 +106,13 @@ $(function(){
 
 	$("#search-form").ajaxForm({
 		target: "#searchresults",
-		success: function() {  $("#resultstable").tablesorter(); }
+		success: function() { 
+			$("#resultstable").tablesorter({
+				headers: {
+					6: { sorter: false }
+				}
+			}); 
+		}
 	});
 });
 
