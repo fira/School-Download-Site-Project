@@ -42,7 +42,7 @@
 	
 	<?php 
 		if(isset($_SESSION['userid'])) { ?>
-		<button id="logout-button">Log out</button><br />
+		<button class="floatbutton" id="logout-button">Log out</button><br />
 	<?php } else { ?>
 		<div id="reg-dialog" title="Signing up"></div>
 		<div id="login-dialog" title="Signing in"></div>
