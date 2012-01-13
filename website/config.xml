@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This might not be obvious enough, but this file should not be readable
+from HTTP. There's the database password in it. -->
+
 <root>
 	<!-- Title of the main website page -->
 	<title>Unnamed Up/Download website</title>
@@ -21,5 +24,13 @@
 	<oracle-passwd>merlau</oracle-passwd>
 	<!-- Database identifier(?) -->
 	<oracle-id>XE</oracle-id>
+	
+	<!-- Max size of files to be downloaded over the specified time lapse (in bytes) - default approx 10 MB -->
+	<download-maxsize>10000000</download-maxsize>
+	<!-- Time in seconds during which the above restriction apply (default 86400 = 24 hours) -->
+	<download-maxtime>86400</download-maxtime>
+	
+	<!-- Max amount of files to be downloaded within 24 hours -->
+	<download-maxamount>5</download-maxamount>
 	
 </root>

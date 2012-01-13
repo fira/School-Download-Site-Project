@@ -41,7 +41,8 @@ CREATE TABLE users
      password VARCHAR2 (62)  NOT NULL , 
      lastname VARCHAR2 (50)  NOT NULL , 
      firstname VARCHAR2 (50)  NOT NULL , 
-     mail VARCHAR2 (30)  NOT NULL 
+     mail VARCHAR2 (30)  NOT NULL ,
+     lastlogin NUMBER
     ) 
 ;
 

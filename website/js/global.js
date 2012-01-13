@@ -103,5 +103,18 @@ $(function(){
 		/* FIXME We should just reload the contents div instead of the whole page */
 		window.location.reload();
 	});
+	
+	$("#validbutton").button();
+
+	$("#search-form").ajaxForm({
+		target: "#searchresults",
+		success: function() { 
+			$("#resultstable").tablesorter({
+				headers: {
+					6: { sorter: false }
+				}
+			}); 
+		}
+	});
 });
 

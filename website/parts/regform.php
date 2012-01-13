@@ -42,7 +42,7 @@
 			} else {			
 				/* Constructs the query and send it to the database */
 				$hashedpass = crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']);
-				$query = oci_parse($db_id, "INSERT INTO users(id_user,username,password,lastname,firstname,mail) VALUES(usersIDs.NEXTVAL, '" . $_POST['user'] . "', :pass, :lastname, :firstname, '". $_POST['email'] . "')");
+				$query = oci_parse($db_id, "INSERT INTO users(id_user,username,password,lastname,firstname,mail,lastlogin) VALUES(usersIDs.NEXTVAL, '" . $_POST['user'] . "', :pass, :lastname, :firstname, '". $_POST['email'] . "', " . time() . ")");
 				oci_bind_by_name($query, ':lastname', $_POST['lastname']);
 				oci_bind_by_name($query, ':firstname', $_POST['firstname']);
 				oci_bind_by_name($query, ':pass', $hashedpass);

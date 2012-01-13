@@ -18,12 +18,20 @@
 		//oci_bind_by_name($query, ':user', $_POST['user']);
 		//oci_bind_by_name($query, ':password', crypt($_POST['password'], "$2a$08$".$_CONFIG['salt']));
 		$result = oci_execute($query);
-		db_close();
 
 		if((!$result) || !($data = oci_fetch_array($query))) { $loginresult = 2;
 		} else { 
 			$_SESSION['userid'] = $data['ID_USER'];
 			$_SESSION['username'] = $data['USERNAME'];
+			
+			// Also update last login date.. but only if he logged in last month
+			// Otherwise we'll show him the re-registration form later
+			if((time() - $data['LASTLOGIN']) < 3600*24*30) {
+				$query = oci_parse($db_id, "UPDATE users SET lastlogin = " . time() . " WHERE id_user = " . $data['ID_USER']);
+				oci_execute($query);
+			} else { 
+				$_SESSION['outdated'] = true;
+			}
 			
 			// FIXME Should load only the contents id div element instead of reloading the whole page
 			?><script type="text/javascript">window.location.reload()</script>

@@ -4,15 +4,32 @@
 
 	/* Login info */
 	if(!isset($_SESSION['userid'])) { ?>
-		<div id="reg-dialog" title="Signing up"></div>
-		<div id="login-dialog" title="Signing in"></div>
-		<button class="floatbutton" id="reg-button">Sign up</button>
-		<button class="floatbutton" id="login-button">Sign in</button>
-
 		You are not logged in! Please login with the buttons at the top of the page
+		
+		
+	<?php } elseif(isset($_SESSION['outdated']) && $_SESSION['outdated']) {
+		/* In this case, the user has to reenter his informations to proceed */
+		db_connect();
+		$query = oci_parse($db_id, "SELECT * FROM users WHERE id_user = " . $_SESSION['userid']);
+		oci_execute($query);
+		$data = oci_fetch_array($query);
+		
+	?><form id="rereg-form" method="POST" action="parts/rereg.php">
+		<p>You have not logged in 30 days.<br />Please update your login information below<br /></p>
+		<fieldset class="mainfieldset">
+			<table>
+				<tr><td width='200px'><label for="email">Email:</label></td>
+					<td><?php insertField("email", false, false, " value='" . $data['MAIL']. "'"); ?></td>
+				</tr>
+			</table><br />
+			<input type="submit" id="validbutton" />
+		</fieldset>
+	</form>
+		
+		
+<?php		
+	} else { ?>
 
-	<?php } else { ?>
-		<button id="logout-button" class="floatbutton">Log out</button><br />
 		<?php widget_infobox("Currently logged in as: ". $_SESSION['username'], true, "userinfobox"); ?><br />
 				
 		<fieldset class="mainfieldset">
@@ -30,7 +47,7 @@
 						<option value="picture">Picture (JPEG, PNG...)</option>
 					</select>
 					<input name="uploadedfile" type="file"/></td>
-					<td rowspan="2"><input type="image" alt="Upload" width="158" height="45" src="images/upload/upload_button.png" /></td>
+					<td rowspan="2"><input onclick="this.form.target='_blank';return true;" type="image" alt="Upload" width="158" height="45" src="images/upload/upload_button.png" /></td>
 					</tr>
 					<tr><td>
 					<label for="desc">Description: </label>
@@ -45,7 +62,7 @@
 
 		<fieldset class="mainfieldset">
 			<legend>Search for files</legend>
-			<form method="POST" action="parts/search.php">
+			<form id="search-form" method="POST" action="parts/search.php">
 				<table width="100%"><tr>
 					<td><?php insertField("text"); ?></td>
 					<div id="searchradio">
@@ -56,5 +73,10 @@
 				</tr></table>
 			</form>
 		</fieldset>
+
+		<br />
+		
+				<span id="searchresults">
+				</span>
 
 <?php } ?>

@@ -18,21 +18,25 @@
 	$filename = $_FILES['uploadedfile']['name'];		// The file's original name (as sent by the user)
 	$filesize = $_FILES['uploadedfile']['size'];		// The file size in bytes
 	$filetmp = $_FILES['uploadedfile']['tmp_name'];		// The file's current name in the temporary directory
-	$filetype = $_FILES['uploadedfile']['type'];		// The uploaded file's MIME type 
+	$filetype = $_POST['file_cat'];						// The uploaded file's type 
 
-	/* FIXME We should check if the file's not big enough before proceeding */
+	/* FIXME We should check if the file's too big before proceeding */
+
+	if(!$filename) exit();
 
 	/* Check if a file (with its description and category) was browsed to be uploaded */
 	if(!isset($_POST['desc'])) $_POST['desc'] = "";
+
+	$searchpattern = "%$filename";
 	
 	db_connect();	
-	$exist = oci_parse($db_id, 'SELECT COUNT(name) FROM files WHERE name=:name');
-	oci_bind_by_name($exist, ':name', $filename);
-	$same_files = oci_execute($exist);
+	$exist = oci_parse($db_id, 'SELECT COUNT(name) FROM files WHERE name LIKE :name');
+	oci_bind_by_name($exist, ':name', $searchpattern);
+	if(!oci_execute($exist)) { echo "Couldn't upload the file!"; exit(); }
+	$result = oci_fetch_row($exist);
 
-
-	if ($same_files != 0) {
-		$filename = $same_files . "-" . $filename;
+	if ($result[0]) {
+		$filename = $result[0] . "-" . $filename;
 	}
 
 	$target_path = $target_path . basename($filename); 
@@ -44,11 +48,8 @@
 		echo "There was an error uploading the file, please try again!";
 	}
 
-	/* FIXME The query just won't work
-	$query = oci_parse($db_id, "INSERT INTO files(name,type,filesize,id_user,id_file,upload_date,downloads,description) VALUES('" . $filename . "','" . $_FILES['uploadedfile']['type'] . "','" . $filesize . "','" . $_SESSION['userid'] . "', filesIDs.NEXTVAL, '" . time() . "', ,'" . $_POST['desc'] . "')"); */
-
-	//$query = oci_parse($db_id, "INSERT INTO files(id_file, id_user, name, type, filesize, upload_date, downloads, description) VALUES (filesIDs.NEXTVAL, $userid, :name, :type, "
-	//$result = oci_execute($query);
+	$query = oci_parse($db_id, "INSERT INTO files(name,type,filesize,id_user,id_file,upload_date,downloads,description) VALUES('" . $filename . "','" . $filetype . "','" . $filesize . "','" . $_SESSION['userid'] . "', filesIDs.NEXTVAL, '" . time() . "', 0 ,'" . $_POST['desc'] . "')"); 
+	$result = oci_execute($query);
 
 	db_close();
 ?>
